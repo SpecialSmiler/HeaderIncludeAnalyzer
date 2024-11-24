@@ -1,0 +1,3 @@
+#pragma
+
+extern int ImguiMain();

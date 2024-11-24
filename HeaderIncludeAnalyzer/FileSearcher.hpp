@@ -7,14 +7,18 @@
 
 namespace fs = std::filesystem;
 
-using SearchCallback = std::function<void(const fs::path& path)>;
+class FileCollector
+{
+public:
+    virtual void collect(const fs::path& path) = 0;
+};
 
 class FileSearcher
 {
 public:
     FileSearcher(const fs::path& directory);
 
-    void search_files(SearchCallback callback) const;
+    void search_files(FileCollector* collector) const;
 
     void add_excluded_directory(const fs::path& directory);
 

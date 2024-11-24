@@ -5,9 +5,9 @@ FileSearcher::FileSearcher(const fs::path& directory)
 {
 }
 
-void FileSearcher::search_files(SearchCallback callback) const
+void FileSearcher::search_files(FileCollector* collector) const
 {
-    if (m_directory.empty())
+    if (m_directory.empty() || !collector)
         return;
 
     try {
@@ -18,7 +18,7 @@ void FileSearcher::search_files(SearchCallback callback) const
                 it.disable_recursion_pending();
                 continue;
             }
-            callback(it->path());
+            collector->collect(it->path());
         }
 
     }
